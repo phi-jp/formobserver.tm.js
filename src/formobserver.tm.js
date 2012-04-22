@@ -17,13 +17,15 @@ var tm = tm || {};
         
         var observeForm = function() {
             if (elm.value != prevValue) {
-                elm.initEvent("change", true, false);
+                var e = document.createEvent("HTMLEvents");
+                e.initEvent("change", true, false);
                 elm.dispatchEvent(e);
             }
-            reveValue = elm.value;
+            prevValue = elm.value;
         };
         
-        prevValue = elm.value;
+        elm.addEventListener("focus", function() { timerID = setInterval(observeForm, fps); });
+        elm.addEventListener("blur", function() { clearInterval(timerID); });
     };
     
     tm.FormObserver.observeAll = function(className)
