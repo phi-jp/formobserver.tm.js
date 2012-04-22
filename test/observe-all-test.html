@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+        <style>
+            * {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -o-box-sizing: border-box;
+                box-sizing: border-box;
+                font-family: "Meiryo", Arial, Helvetica, sans-serif;
+                line-height: 1.5em;
+            }
+            
+            body {
+                font-size: 16px;
+            }
+        </style>
+        <script src="../src/formobserver.tm.js"></script>
+        <script>
+            window.onload = function()
+            {
+                // tm-form-observer クラスを指定しているすべての要素を監視
+                tm.FormObserver.observeAll();
+                
+                
+                // 通常のチェンジイベントを登録
+                var t0 = document.getElementById("t0");
+                var c0 = document.getElementById("c0");
+                
+                t0.addEventListener("change", function(e){
+                    c0.innerHTML = t0.value.length;
+                }, false);
+                
+                // 監視するようにした要素にチェンジイベントを登録
+                var t1 = document.getElementById("t1");
+                var c1 = document.getElementById("c1");
+                
+                t1.addEventListener("change", function(){
+                    c1.innerHTML = t1.value.length;
+                }, false);
+            };
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>tm.form-observer.js - class 指定で監視</h1>
+            <p>
+                tm-form-observer というクラスを要素に指定し, tm.FormObserver.observeAll メソッドを実行することで
+                監視状態にすることができます.
+            </p>
+        </header>
+        <div>
+            <section id="sample00">
+                <h2>通常の change イベントの場合</h2>
+                <p>
+                    フォーカスを解除した際に文字数が反映されます.
+                </p>
+                <div>
+                    <textarea id="t0"></textarea>
+                    <p>文字数 : <span id="c0">0</span></p>
+                </div>
+            </section>
+            <section id="sample01">
+                <h2>observer に登録した要素の change イベントの場合</h2>
+                <p>
+                    編集中にリアルタイムで文字数が反映されます.
+                </p>
+                <div>
+                    <textarea id="t1" class="tm-form-observer"></textarea>
+                    <p>文字数 : <span id="c1">0</span></p>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
